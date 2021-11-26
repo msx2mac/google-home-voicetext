@@ -30,24 +30,24 @@ const OUTPUT_URL =
   "http://" + WIRELESS_IP + ":" + FILE_SERVER_PORT + "/googlehome/_temp.wav";
   const fs = require("fs");
 
-let SPEAKER;
-if (VOICETEXT_SPEAKER === "BEAR") {
-  SPEAKER = voice.SPEAKER.BEAR;
-} else if (VOICETEXT_SPEAKER === "HARUKA") {
-  SPEAKER = voice.SPEAKER.HARUKA;
-} else if (VOICETEXT_SPEAKER === "SANTA") {
-  SPEAKER = voice.SPEAKER.SANTA;
-} else if (VOICETEXT_SPEAKER === "SHOW") {
-  SPEAKER = voice.SPEAKER.SHOW;
-} else if (VOICETEXT_SPEAKER === "TAKERU") {
-  SPEAKER = voice.SPEAKER.TAKERU;
-} else {
-  SPEAKER = voice.SPEAKER.HIKARI;
-}
-
 class VoiceTextWriter {
-  convertToText(text) {
+  convertToText(text, speaker) {
     return new Promise(function(resolve, reject) {
+      let SPEAKER;
+      if (speaker === "BEAR") {
+        SPEAKER = voice.SPEAKER.BEAR;
+      } else if (speaker === "HARUKA") {
+        SPEAKER = voice.SPEAKER.HARUKA;
+      } else if (speaker === "SANTA") {
+        SPEAKER = voice.SPEAKER.SANTA;
+      } else if (speaker === "SHOW") {
+        SPEAKER = voice.SPEAKER.SHOW;
+      } else if (speaker === "TAKERU") {
+        SPEAKER = voice.SPEAKER.TAKERU;
+      } else {
+        SPEAKER = voice.SPEAKER.HIKARI;
+      }
+      
       voice
         .speaker(SPEAKER)
         .emotion(voice.EMOTION.HAPPINESS)

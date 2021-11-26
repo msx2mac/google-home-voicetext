@@ -20,11 +20,16 @@ app.post("/google-home-voicetext", urlencodedParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
   console.log(req.body);
   const text = req.body.text;
+  let speaker = req.body.speaker;
   if (text) {
+    if (!speaker) {
+      speaker = process.env["VOICETEXT_SPEAKER"];
+    }
+
     try {
-      googlehome.notify(text, function(notifyRes) {
+      googlehome.notify(text, speaker, function(notifyRes) {
         console.log(notifyRes);
-        res.send(deviceName + " will say: " + text + "\n");
+        res.send(deviceName + " will say: " + text + ", speaker: " + speaker + "\n");
       });
     } catch (err) {
       console.log(err);
@@ -43,7 +48,7 @@ app.listen(serverPort, function() {
   );
   console.log("example:");
   console.log(
-    'curl -X POST -d "text=こんにちは、Googleです。" http://{Server IP address}:' +
+    'curl -X POST -d "speaker=TAKERU&text=こんにちは、Googleです。" http://{Server IP address}:' +
       serverPort +
       "/google-home-voicetext"
   );

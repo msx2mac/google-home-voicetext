@@ -139,6 +139,14 @@ $ node firestore.js
 | `SHOW` | 「モヤモヤさまぁ～ず」のナレーター |
 | `TAKERU` | 落ち着いた男性の声 |
 
+## 引数で話者を変える
+```bash
+$ curl -X POST -d "speaker=TAKERU&text=こんにちは、Googleです。" http://{サーバーのIPアドレス}:8080/google-home-voicetext
+```
+
+speakerを省略した場合は、環境変数 `VOICETEXT_SPEAKER` を使用します。
+
+
 # トラブルシューティングガイド
 ## mdns_patch
 DockerやRaspberry Piで`google-home-voicetext`を動かす場合は`node_modules/mdns/lib/browser.js`を修正する必要があります。
